@@ -8,12 +8,14 @@ Laravel será responsável pela parte de autenticação, autorização, fila, en
 Node será responsável pela comunicação reltime para isso usaremos sockect.io.
 
 ## Ferramentas sendo utilizadas no projeto.
-Vue 2.
-Laravel 6.
-Node 10.
+Vue 2
 
-Mysql.
+Laravel 6
 
-Mongo.
+Node 10
 
-Redis.
+Mysql
+
+Mongo
+
+Redis
