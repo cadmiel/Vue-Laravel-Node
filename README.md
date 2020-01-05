@@ -11,8 +11,11 @@ Node será responsável pela comunicação reltime para isso usaremos sockect.io
 Vue 2.
 
 Laravel 6.
+
 Node 10.
 
 Mysql.
+
 Mongo.
+
 Redis.
