@@ -18,7 +18,16 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('username',100);
             $table->string('password');
+            $table->text('first_password');
+            $table->string('acting_level',11)->nullable();
+            $table->boolean('blocked')->default(false);
+            $table->boolean('active')->default(true);
+            $table->boolean('super_admin')->default(false);
+            $table->boolean('change_password')->default(true);
+            $table->timestamp('password_changed_at')->nullable();
+            $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
