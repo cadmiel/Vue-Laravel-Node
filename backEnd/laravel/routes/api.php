@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,5 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'v1', 'as' => 'auth.'], function () {
-    Route::post('auth', [LoginController::class, 'login'])->name('login');
+    Route::post('oauth/token', [AuthController::class, 'login'])->name('auth');
 });

@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Route;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
 
     use AuthenticatesUsers {
@@ -51,7 +51,7 @@ class LoginController extends Controller
      * @return JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function login(Request $request)
+    public function auth(Request $request)
     {
         $laravelLogin = $this->laravelLogin($request);
 
@@ -93,14 +93,14 @@ class LoginController extends Controller
 
         $tokenRequest->headers = $request->headers;
 
-        $retorno = Route::dispatch($tokenRequest);
+        $callback = Route::dispatch($tokenRequest);
 
-        $array_retorno = json_decode((string)$retorno->getContent(), true);
+        $array_retorno = json_decode((string)$callback->getContent(), true);
 
-        if ($retorno->getStatusCode() <> 200) {
+        if ($callback->getStatusCode() <> 200) {
             return response()
                 ->json($array_retorno)
-                ->setStatusCode($retorno->getStatusCode());
+                ->setStatusCode($callback->getStatusCode());
         }
 
         $array_retorno['email_verified'] = $user->hasVerifiedEmail();
