@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use League\OAuth2\Server\Entities\ClientEntityInterface;
+use League\OAuth2\Server\Entities\UserEntityInterface;
+use League\OAuth2\Server\Repositories\UserRepositoryInterface;
+use OAuth2ServerExamples\Entities\UserEntity;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, UserRepositoryInterface
 {
     use HasApiTokens;
     use Notifiable;
@@ -30,6 +34,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_login',
         'acting_level',
         'username',
+        'provider',
+        'provider_user_id',
     ];
 
     /** @var array */
@@ -53,5 +59,36 @@ class User extends Authenticatable implements MustVerifyEmail
     public function findForPassport($username)
     {
         return $this->where('username', $username)->first();
+    }
+
+    public static function findForPassportSocialite($provider, $id)
+    {
+        return User::where('provider', $provider)->where('provider_user_id', $id)->first();
+    }
+
+    /**
+     * Get a user entity.
+     *
+     * @param string                $username
+     * @param string                $password
+     * @param string                $grantType The grant type used
+     * @param ClientEntityInterface $clientEntity
+     *
+     * @return UserEntityInterface|null
+     */
+    public function getUserEntityByUserCredentials(
+        $username,
+        $password,
+        $grantType,
+        ClientEntityInterface $clientEntity
+    ) {
+
+        // TODO: Implement getUserEntityByUserCredentials() method.
+    }
+
+
+    public function getIdentifier()
+    {
+        return $this->id;
     }
 }

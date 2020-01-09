@@ -19,4 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'v1', 'as' => 'auth.'], function () {
     Route::post('oauth/token', [AuthController::class, 'login'])->name('auth');
+    Route::get('oauth/{driver}', [\App\Http\Controllers\Auth\SocialiteController::class, 'redirectToProvider']);
+    Route::get('oauth/{driver}/callback', [\App\Http\Controllers\Auth\SocialiteController::class, 'handleProviderCallback']);
 });
