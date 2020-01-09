@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('username',100);
             $table->string('password');
+            $table->string('provider_user_id',100)->nullable();
+            $table->string('provider',10)->nullable();
             $table->text('first_password');
             $table->string('acting_level',11)->nullable();
             $table->boolean('blocked')->default(false);
